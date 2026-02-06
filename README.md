@@ -32,6 +32,17 @@ Proyecto web para el Dr. Ricardo Bernae Luna Cruz (anestesiologo) con:
 2. Ejecutar servidor:
    `python manage.py runserver 8002`
 
+## 2.1 Deploy Demo en Render (opcional)
+
+Este proyecto incluye `render.yaml` para despliegue rapido en Render.
+
+Pasos:
+1. Crear Web Service desde el repo de GitHub.
+2. Render lee `render.yaml` automaticamente.
+3. Esperar build y deploy.
+
+Nota: en modo demo con SQLite, los datos pueden perderse si Render reinicia.
+
 ## 3. Rutas principales
 
 1. Inicio: `http://127.0.0.1:8002/`
