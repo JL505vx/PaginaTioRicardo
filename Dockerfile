@@ -14,7 +14,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Codigo del proyecto
 COPY . /app/
 
+RUN chmod +x /app/entrypoint.sh
+
 EXPOSE 8000
 
-# Comando por defecto (desarrollo local)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Comando de arranque (produccion/demo en Render)
+CMD ["/app/entrypoint.sh"]
