@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ tema.titulo }} | Foro{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>{{ tema.titulo }}</h1>
+        <p>{{ tema.cuerpo }}</p>
+        <p class="small">Creado por {{ tema.autor.username }}</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="message-list">
+        {% for mensaje in mensajes %}
+            <div class="message">
+                <div class="message__meta">
+                    <strong>{{ mensaje.autor.username }}</strong>
+                    <span>{{ mensaje.creado }}</span>
+                </div>
+                <p>{{ mensaje.cuerpo }}</p>
+            </div>
+        {% empty %}
+            <p>Aun no hay respuestas. El doctor lo revisara pronto.</p>
+        {% endfor %}
+    </div>
+
+    <div class="divider"></div>
+
+    {% if request.user.is_authenticated and request.user.es_paciente and doctor_respondio %}
+        <div class="card">
+            <h3>Mensaje privado al doctor</h3>
+            <p>El doctor ya respondio. Puedes enviarle un mensaje privado.</p>
+            <a class="btn btn--primary" href="/cuentas/chat/{{ doctor_responder.id }}/">Abrir chat privado</a>
+        </div>
+        <div class="divider"></div>
+    {% endif %}
+
+    {% if request.user.is_authenticated %}
+        <form class="form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn--primary" type="submit">Responder</button>
+        </form>
+    {% else %}
+        <p>Inicia sesion para responder.</p>
+        <a class="btn btn--ghost" href="/cuentas/ingresar/paciente/">Ingreso paciente</a>
+    {% endif %}
+</section>
+{% endblock %}

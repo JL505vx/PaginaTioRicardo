@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Nuevo tema | Foro{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Nuevo tema</h1>
+        <p>Describe tu duda de forma clara para recibir una respuesta util.</p>
+    </div>
+</section>
+
+<section class="container">
+    {% if not request.user.is_authenticated %}
+        <p>Necesitas iniciar sesion para publicar.</p>
+        <a class="btn btn--ghost" href="/cuentas/ingresar/paciente/">Ingreso paciente</a>
+    {% else %}
+        <form class="form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn--primary" type="submit">Publicar</button>
+        </form>
+    {% endif %}
+</section>
+{% endblock %}

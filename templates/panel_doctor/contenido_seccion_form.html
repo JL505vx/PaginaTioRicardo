@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Nueva Seccion{% endblock %}
+{% block body_class %}role-doctor doctor-shell{% endblock %}
+
+{% block content %}
+<section class="page-header panel-header">
+    <div class="container">
+        <h1>Crear seccion</h1>
+        <p>Organiza la biblioteca en temas claros.</p>
+    </div>
+</section>
+
+<section class="container">
+    <form class="form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn--dark" type="submit">Guardar</button>
+    </form>
+</section>
+{% endblock %}

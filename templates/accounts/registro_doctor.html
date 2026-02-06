@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro Doctor{% endblock %}
+{% block body_class %}role-doctor{% endblock %}
+
+{% block content %}
+<section class="auth auth--doctor">
+    <div class="container auth__content">
+        <div class="auth__panel">
+            <h1>Registro Doctor</h1>
+            <p>Cuenta privada para administrar el panel clinico.</p>
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn--dark" type="submit">Crear cuenta</button>
+            </form>
+            <p class="small">Ya tienes cuenta? <a class="link" href="/cuentas/ingresar/doctor/">Ingresar</a></p>
+        </div>
+        <div class="auth__aside">
+            <h3>Rol profesional</h3>
+            <p>Gestiona los mensajes y temas desde un lugar seguro.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

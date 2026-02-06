@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Ingreso Paciente{% endblock %}
+{% block body_class %}role-paciente{% endblock %}
+
+{% block content %}
+<section class="auth auth--paciente">
+    <div class="container auth__content">
+        <div class="auth__panel">
+            <h1>Ingreso Paciente</h1>
+            <p>Accede para publicar dudas y participar en el foro.</p>
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn--primary" type="submit">Entrar</button>
+            </form>
+            <p class="small">Aun no tienes cuenta? <a class="link" href="/cuentas/registro/paciente/">Registrate</a></p>
+        </div>
+        <div class="auth__aside">
+            <h3>Comunidad de pacientes</h3>
+            <p>Comparte tu duda y recibe respuestas claras.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

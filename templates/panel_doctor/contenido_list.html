@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Contenido del Doctor{% endblock %}
+{% block body_class %}role-doctor doctor-shell{% endblock %}
+
+{% block content %}
+<section class="page-header panel-header">
+    <div class="container">
+        <h1>Biblioteca del Doctor</h1>
+        <p>Documentos, videos, fotos y secciones para pacientes.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="card">
+        <h3>Como funciona esta biblioteca</h3>
+        <ul class="clean-list">
+            <li>Primero puedes crear una <strong>Seccion</strong> (ej. Preparacion, Recuperacion).</li>
+            <li>Despues agregas un <strong>Recurso</strong> y lo asignas a una seccion.</li>
+            <li>El campo <strong>Orden</strong> en Seccion define como se listan.</li>
+            <li><strong>Publicar en Recursos</strong> = aparece en /recursos/.</li>
+            <li><strong>Publicar tambien en Blog</strong> = crea un post en /blog/.</li>
+        </ul>
+        <div class="divider"></div>
+        <p class="small">Tu eliges donde se publica. Puedes marcar uno o ambos.</p>
+    </div>
+
+    <div class="card-grid">
+        <a class="card" href="/doctor/contenido/nuevo/">
+            <h3>Agregar recurso</h3>
+            <p>Sube documentos, imagenes o enlaces de video. Puedes marcarlo como publicado.</p>
+        </a>
+        <a class="card" href="/doctor/contenido/seccion/">
+            <h3>Crear seccion</h3>
+            <p>Organiza la biblioteca por temas y define el orden de aparicion.</p>
+        </a>
+        <a class="card" href="/doctor/blog/">
+            <h3>Administrar Blog</h3>
+            <p>Crea, edita o elimina publicaciones informativas.</p>
+        </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Secciones</h3>
+    <div class="list">
+        {% for sec in secciones %}
+            <div class="list-item">
+                <div>
+                    <h4>{{ sec.nombre }}</h4>
+                    <p>{{ sec.descripcion }}</p>
+                    <p class="small">Orden: {{ sec.orden }}</p>
+                </div>
+                <div class="list-actions">
+                    <a class="btn btn--ghost" href="/doctor/contenido/seccion/{{ sec.id }}/editar/">Editar</a>
+                    <a class="btn btn--ghost" href="/doctor/contenido/seccion/{{ sec.id }}/eliminar/">Eliminar</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay secciones creadas.</p>
+        {% endfor %}
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Recursos</h3>
+    <div class="list">
+        {% for recurso in recursos %}
+            <div class="list-item">
+                <div>
+                    <h3>{{ recurso.titulo }}</h3>
+                    <p>{{ recurso.descripcion }}</p>
+                    <p class="small">Tipo: {{ recurso.get_tipo_display }}{% if recurso.seccion %} | Seccion: {{ recurso.seccion.nombre }}{% endif %}</p>
+                </div>
+                <div class="list-actions">
+                    <span class="pill">{% if recurso.publicado %}Publicado{% else %}Borrador{% endif %}</span>
+                    <a class="btn btn--ghost" href="/doctor/contenido/{{ recurso.id }}/editar/">Editar</a>
+                    <a class="btn btn--ghost" href="/doctor/contenido/{{ recurso.id }}/eliminar/">Eliminar</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay recursos creados.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

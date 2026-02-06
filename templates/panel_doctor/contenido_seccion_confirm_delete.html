@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar seccion{% endblock %}
+{% block body_class %}role-doctor doctor-shell{% endblock %}
+
+{% block content %}
+<section class="page-header panel-header">
+    <div class="container">
+        <h1>Eliminar seccion</h1>
+        <p>Esta accion no se puede deshacer.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="card">
+        <p>Seguro que deseas eliminar: <strong>{{ seccion.nombre }}</strong>?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn--dark" type="submit">Eliminar</button>
+            <a class="btn btn--ghost" href="/doctor/contenido/">Cancelar</a>
+        </form>
+    </div>
+</section>
+{% endblock %}

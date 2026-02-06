@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Panel Doctor{% endblock %}
+{% block body_class %}role-doctor doctor-shell{% endblock %}
+
+{% block content %}
+<section class="page-header panel-header">
+    <div class="container">
+        <h1>Panel del Doctor</h1>
+        <p>Vista privada para revisar mensajes, temas y la biblioteca de recursos.</p>
+        <div class="hero__actions">
+            <a class="btn btn--dark" href="/doctor/contenido/">Administrar biblioteca</a>
+            <a class="btn btn--ghost" href="/doctor/blog/">Administrar blog</a>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="card">
+        <h3>Que puedes hacer aqui</h3>
+        <ul class="clean-list">
+            <li>Revisar temas y respuestas recientes del foro.</li>
+            <li>Responder mensajes publicos de pacientes.</li>
+            <li>Gestionar chats privados con pacientes.</li>
+            <li>Crear y organizar recursos (documentos, videos, imagenes y textos).</li>
+            <li>Publicar material que se vera en la seccion Recursos.</li>
+        </ul>
+        <div class="divider"></div>
+        <p class="small">Todo lo que publiques en Recursos es visible para pacientes en la biblioteca publica.</p>
+    </div>
+</section>
+
+<section class="container panel-grid">
+    <div>
+        <h2>Temas recientes</h2>
+        <div class="list">
+            {% for tema in temas %}
+                <a class="list-item" href="/foro/{{ tema.id }}/">
+                    <div>
+                        <h3>{{ tema.titulo }}</h3>
+                        <p>{{ tema.cuerpo|truncatechars:120 }}</p>
+                    </div>
+                    <span class="pill">{{ tema.mensajes.count }} respuestas</span>
+                </a>
+            {% empty %}
+                <p>No hay temas todavia.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div>
+        <h2>Mensajes recientes</h2>
+        <div class="message-list">
+            {% for mensaje in mensajes %}
+                <div class="message">
+                    <div class="message__meta">
+                        <strong>{{ mensaje.autor.username }}</strong>
+                        <span>{{ mensaje.creado }}</span>
+                    </div>
+                    <p>{{ mensaje.cuerpo|truncatechars:200 }}</p>
+                    <a class="link" href="/foro/{{ mensaje.tema.id }}/">Ver tema</a>
+                </div>
+            {% empty %}
+                <p>No hay mensajes todavia.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div>
+        <h2>Chats privados</h2>
+        <div class="list">
+            {% for chat in conversaciones %}
+                <a class="list-item" href="/doctor/chat/{{ chat.id }}/">
+                    <div>
+                        <h3>Paciente: {{ chat.paciente.username }}</h3>
+                        {% if chat.tema %}
+                            <p>Tema: {{ chat.tema.titulo }}</p>
+                        {% endif %}
+                    </div>
+                    <span class="pill">Abrir chat</span>
+                </a>
+            {% empty %}
+                <p>No hay chats privados aun.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

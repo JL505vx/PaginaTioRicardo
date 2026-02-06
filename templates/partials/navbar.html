@@ -1,0 +1,35 @@
+<!--
+  Barra de navegacion principal.
+  Las acciones de acceso estan separadas por rol.
+-->
+<nav class="navbar">
+    <div class="container navbar__content">
+        <a class="logo" href="/">DR. RICARDO</a>
+
+        <div class="navbar__links">
+            <a href="/">Inicio</a>
+            <a href="/blog/">Blog</a>
+            <a href="/foro/">Foro</a>
+            <a href="/recursos/">Recursos</a>
+        </div>
+
+        <div class="navbar__actions">
+            {% if request.user.is_authenticated %}
+                {% if request.user.es_doctor %}
+                    <span class="user-pill user-pill--doctor">Modo Doctor</span>
+                {% else %}
+                    <span class="user-pill">Modo Paciente</span>
+                {% endif %}
+                <span class="user-pill">Hola, {{ request.user.first_name|default:request.user.username }}</span>
+                {% if request.user.es_doctor %}
+                    <a class="btn btn--dark" href="/doctor/">Panel Doctor</a>
+                {% else %}
+                    <a class="btn btn--dark" href="/cuentas/panel/paciente/">Mi Panel</a>
+                {% endif %}
+                <a class="btn btn--ghost" href="/cuentas/salir/">Salir</a>
+            {% else %}
+                <a class="btn btn--ghost" href="/cuentas/ingresar/paciente/">Ingreso Paciente</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

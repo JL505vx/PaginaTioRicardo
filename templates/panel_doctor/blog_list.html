@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog del Doctor{% endblock %}
+{% block body_class %}role-doctor doctor-shell{% endblock %}
+
+{% block content %}
+<section class="page-header panel-header">
+    <div class="container">
+        <h1>Blog del Doctor</h1>
+        <p>Crea, edita o elimina publicaciones informativas.</p>
+        <div class="hero__actions">
+            <a class="btn btn--dark" href="/doctor/blog/nuevo/">Nuevo post</a>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="list">
+        {% for post in posts %}
+            <div class="list-item">
+                <div>
+                    <h3>{{ post.titulo }}</h3>
+                    <p>{{ post.resumen }}</p>
+                    <p class="small">{% if post.publicado %}Publicado{% else %}Borrador{% endif %}</p>
+                </div>
+                <div class="list-actions">
+                    <a class="btn btn--ghost" href="/doctor/blog/{{ post.id }}/editar/">Editar</a>
+                    <a class="btn btn--ghost" href="/doctor/blog/{{ post.id }}/eliminar/">Eliminar</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay posts creados.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

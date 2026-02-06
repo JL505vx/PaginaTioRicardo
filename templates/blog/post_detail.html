@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.titulo }} | Blog{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>{{ post.titulo }}</h1>
+        <p>{{ post.resumen }}</p>
+    </div>
+</section>
+
+<section class="container content">
+    <div class="prose">
+        {{ post.contenido|linebreaks }}
+    </div>
+
+    <a class="link" href="/blog/">Volver al blog</a>
+</section>
+{% endblock %}

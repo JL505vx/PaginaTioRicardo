@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Nuevo Recurso{% endblock %}
+{% block body_class %}role-doctor doctor-shell{% endblock %}
+
+{% block content %}
+<section class="page-header panel-header">
+    <div class="container">
+        <h1>Crear recurso</h1>
+        <p>Sube documentos, imagenes, videos o texto informativo.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="card">
+        <h3>Nota importante</h3>
+        <p>Tu eliges donde se publica:</p>
+        <ul class="clean-list">
+            <li><strong>Publicar en Recursos</strong> = aparece en <strong>/recursos/</strong>.</li>
+            <li><strong>Publicar tambien en Blog</strong> = crea un post en <strong>/blog/</strong>.</li>
+        </ul>
+        <div class="divider"></div>
+        <p class="small" id="recomendacion-publicacion">
+            Recomendacion: selecciona un tipo para ver sugerencias.
+        </p>
+    </div>
+    <div class="divider"></div>
+    <form class="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn--dark" type="submit">Guardar</button>
+    </form>
+</section>
+
+<script>
+  (function () {
+    const tipo = document.getElementById('id_tipo');
+    const recomendacion = document.getElementById('recomendacion-publicacion');
+
+    if (!tipo || !recomendacion) return;
+
+    const mensajes = {
+      video: 'Recomendado: Recursos. Si deseas una explicacion escrita, marca tambien Blog.',
+      imagen: 'Recomendado: Recursos. Puedes marcar Blog solo si agregas un texto explicativo.',
+      documento: 'Recomendado: Recursos. Blog es opcional si quieres un articulo.',
+      texto: 'Recomendado: Blog. Marca Recursos solo si es una guia breve.',
+    };
+
+    const actualizar = () => {
+      const valor = tipo.value;
+      recomendacion.textContent = mensajes[valor] || 'Recomendacion: selecciona un tipo para ver sugerencias.';
+    };
+
+    tipo.addEventListener('change', actualizar);
+    actualizar();
+  })();
+</script>
+{% endblock %}

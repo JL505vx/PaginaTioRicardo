@@ -1,0 +1,105 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Inicio | Dr. Ricardo Bernae Luna Cruz{% endblock %}
+
+{% block content %}
+<!--
+  Home principal con estilo medico.
+  Secciones: hero, beneficios, informacion y blog.
+-->
+<section class="hero">
+    <div class="container hero__content">
+        <div class="hero__text">
+            <p class="eyebrow">Anestesiologia humana y cercana</p>
+            <h1>Informacion clara para decidir con tranquilidad.</h1>
+            <p>
+                Este sitio existe para resolver dudas antes, durante y despues de procedimientos.
+                El objetivo es que el paciente entienda su proceso y se sienta acompanado.
+            </p>
+            <div class="hero__actions">
+                <a class="btn btn--primary" href="/foro/">Hacer una pregunta</a>
+                <a class="btn btn--ghost" href="/blog/">Leer el blog</a>
+            </div>
+        </div>
+        <div class="hero__card">
+            <div class="card">
+                <h3>Atencion basada en confianza</h3>
+                <ul class="clean-list">
+                    <li>Lenguaje sencillo</li>
+                    <li>Experiencia clinica</li>
+                    <li>Seguimiento humano</li>
+                </ul>
+                <div class="divider"></div>
+                <p class="small">Agenda local y atencion personalizada.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <div class="feature-grid">
+            <div class="feature">
+                <h4>Informacion confiable</h4>
+                <p>Contenido validado para dudas frecuentes sobre anestesia.</p>
+            </div>
+            <div class="feature">
+                <h4>Foro con respeto</h4>
+                <p>Espacio para preguntas y respuestas cuidadas.</p>
+            </div>
+            <div class="feature">
+                <h4>Atencion local</h4>
+                <p>Comunicacion directa con el doctor, sin intermediarios.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="split">
+    <div class="container split__content">
+        <div>
+            <h2>Preparacion preoperatoria</h2>
+            <p>
+                Entender la anestesia reduce la ansiedad. Aqui encontraras guias sobre
+                tipos de anestesia, estudios previos y cuidados posteriores.
+            </p>
+            <a class="link" href="/blog/">Ver entradas recientes</a>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <span>+10</span>
+                <p>Anos de experiencia</p>
+            </div>
+            <div class="stat">
+                <span>+1000</span>
+                <p>Procedimientos acompanados</p>
+            </div>
+            <div class="stat">
+                <span>24/7</span>
+                <p>Respuesta responsable</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog-preview">
+    <div class="container">
+        <div class="section-header">
+            <h2>Ultimas publicaciones</h2>
+            <a class="link" href="/blog/">Ver todo el blog</a>
+        </div>
+
+        <div class="card-grid">
+            {% for post in posts %}
+                <article class="card">
+                    <h3>{{ post.titulo }}</h3>
+                    <p>{{ post.resumen }}</p>
+                    <a class="link" href="/blog/{{ post.slug }}/">Leer mas</a>
+                </article>
+            {% empty %}
+                <p>Aun no hay publicaciones. El doctor agregara contenido pronto.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

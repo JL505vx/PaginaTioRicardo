@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Chat privado | Paciente{% endblock %}
+{% block body_class %}role-paciente{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Chat privado con el doctor</h1>
+        <p>Solo visible para ti y el doctor.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="message-list">
+        {% for mensaje in mensajes %}
+            <div class="message">
+                <div class="message__meta">
+                    <strong>{{ mensaje.autor.username }}</strong>
+                    <span>{{ mensaje.creado }}</span>
+                </div>
+                <p>{{ mensaje.cuerpo }}</p>
+            </div>
+        {% empty %}
+            <p>Aun no hay mensajes en este chat.</p>
+        {% endfor %}
+    </div>
+
+    <div class="divider"></div>
+
+    <form class="form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn--primary" type="submit">Enviar mensaje</button>
+    </form>
+</section>
+{% endblock %}

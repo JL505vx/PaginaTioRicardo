@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog | Dr. Ricardo Bernae Luna Cruz{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Blog informativo</h1>
+        <p>Explicaciones claras para dudas frecuentes antes y despues de procedimientos.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="card-grid">
+        {% for post in posts %}
+            <article class="card">
+                <h3>{{ post.titulo }}</h3>
+                <p>{{ post.resumen }}</p>
+                <a class="link" href="/blog/{{ post.slug }}/">Leer mas</a>
+            </article>
+        {% empty %}
+            <p>Aun no hay publicaciones.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

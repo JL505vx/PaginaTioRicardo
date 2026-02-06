@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi Panel | Paciente{% endblock %}
+{% block body_class %}role-paciente{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Mi Panel</h1>
+        <p>Este es tu espacio personal. Aqui veras tus temas y respuestas.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="card">
+        <h3>Conversaciones privadas</h3>
+        <p>Mensajes directos con el doctor (solo visibles para ti).</p>
+        <div class="divider"></div>
+        {% if conversaciones %}
+            <div class="list">
+                {% for chat in conversaciones %}
+                    <a class="list-item" href="/cuentas/chat/{{ chat.doctor.id }}/">
+                        <div>
+                            <h4>Doctor: {{ chat.doctor.first_name|default:chat.doctor.username }}</h4>
+                            {% if chat.tema %}
+                                <p>Relacionado al tema: {{ chat.tema.titulo }}</p>
+                            {% endif %}
+                        </div>
+                        <span class="pill">Abrir chat</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Aun no tienes conversaciones privadas.</p>
+        {% endif %}
+
+        <div class="divider"></div>
+        <a class="btn btn--primary" href="/foro/">Ir al foro</a>
+    </div>
+</section>
+{% endblock %}

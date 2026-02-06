@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Biblioteca de Recursos{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Biblioteca de Recursos</h1>
+        <p>Documentos, videos e informacion practica del doctor.</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="card-grid">
+        {% for recurso in recursos %}
+            <article class="card">
+                <h3>{{ recurso.titulo }}</h3>
+                <p>{{ recurso.descripcion }}</p>
+                {% if recurso.tipo == 'video' and recurso.url_video %}
+                    <a class="link" href="{{ recurso.url_video }}" target="_blank">Ver video</a>
+                {% elif recurso.archivo %}
+                    <a class="link" href="{{ recurso.archivo.url }}" target="_blank">Descargar</a>
+                {% elif recurso.tipo == 'texto' %}
+                    <div class="prose">{{ recurso.texto|linebreaks }}</div>
+                {% endif %}
+            </article>
+        {% empty %}
+            <p>Aun no hay recursos publicados.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Foro | Dr. Ricardo Bernae Luna Cruz{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Foro de dudas</h1>
+        <p>Escribe tu pregunta. El doctor revisa y responde desde su panel.</p>
+        <a class="btn btn--primary" href="/foro/nuevo/">Crear tema</a>
+    </div>
+</section>
+
+<section class="container">
+    <div class="list">
+        {% for tema in temas %}
+            <a class="list-item" href="/foro/{{ tema.id }}/">
+                <div>
+                    <h3>{{ tema.titulo }}</h3>
+                    <p>{{ tema.cuerpo|truncatechars:140 }}</p>
+                </div>
+                <span class="pill">{{ tema.mensajes.count }} respuestas</span>
+            </a>
+        {% empty %}
+            <p>Aun no hay temas. Se el primero en preguntar.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
